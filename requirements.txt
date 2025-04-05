@@ -12,3 +12,5 @@ django-cors-headers==4.7.0
 redis==5.2.1
 drf-yasg==1.21.10
 phonenumbers==9.0.1
+qunicorn
+django-redis

@@ -23,7 +23,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_DB=drf_cw8
+      - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
     expose:
       - "5432"

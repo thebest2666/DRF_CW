@@ -3,7 +3,6 @@ from habits.models import Habit
 from users.models import User
 
 
-
 class HabitModelTest(TestCase):
     def setUp(self):
         self.user = User.objects.create(email='test_user')
@@ -22,8 +21,6 @@ class HabitModelTest(TestCase):
         self.assertEqual(habit.period, 0)
         self.assertTrue(habit.is_nice_habit)
         self.assertFalse(habit.is_public)
-
-
 
     def test_period_choices(self):
         habit = Habit(period='week')  # Еженедельная привычка

@@ -74,7 +74,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       SECRET_KEY: ${{ secrets.SECRET_KEY }}
-      DEBUG: ${{ secrets.DEBUG }}
       POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
       POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
       POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
@@ -99,8 +98,7 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}  << E0F0
           cd DRF_CW
-          printf "SECRET_KEY=%s\n" "$SECRET_KEY" > .env
-          printf "DEBUG=%s\n" "$DEBUG" >> .env
+          printf "SECRET_KEY=%s\n" "$SECRET_KEY" > .env          
           printf "POSTGRES_DB=%s\n" "$POSTGRES_DB" >> .env
           printf "POSTGRES_USER=%s\n" "$POSTGRES_USER" >> .env
           printf "POSTGRES_PASSWORD=%s\n" "$POSTGRES_PASSWORD" >> .env

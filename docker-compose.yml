@@ -19,16 +19,29 @@ services:
       - db
 
   db:
-    image: postgres:16
+    image: postgres
     env_file:
       - .env
-    expose:
-      - "5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=CW_DRF
+      - POSTGRES_USER=postgres
+    expose:
+      - "5432"
 
   redis:
-    image: redis:6
+    image: redis
+    volumes:
+      - ./redisdata:/data
+    healthcheck:
+      test: [ "CMD-SHELL", "redis-cli ping | grep PONG" ]
+      interval: 1s
+      timeout: 3s
+      retries: 5
+    depends_on:
+      - db
+      - web
 
   celery:
     build: .
@@ -53,7 +66,6 @@ services:
       - db
     volumes:
       - .:/code
-
 
   nginx:
     build: ./nginx

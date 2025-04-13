@@ -60,7 +60,7 @@ services:
       redis:
         condition: service_started
     env_file:
-      - .env
+      - ../.env
 
   celery_beat:
     build:
@@ -74,7 +74,7 @@ services:
       redis:
         condition: service_started
     env_file:
-      - .env
+      - ../.env
 
 
   nginx:

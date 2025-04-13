@@ -111,6 +111,7 @@ jobs:
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}  << E0F0
           sudo rm -rf drf_cw8
           sudo git clone https://github.com/thebest2666/drf_cw8.git
+          mv .env drf_cw8/
           cd drf_cw8
           printf "SECRET_KEY=%s\n" "$SECRET_KEY" > .env          
           printf "POSTGRES_DB=%s\n" "$POSTGRES_DB" >> .env

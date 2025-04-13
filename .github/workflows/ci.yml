@@ -94,19 +94,10 @@ jobs:
 
       - name: Deploy to server
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}  << E0F0
-          sudo rm -rf drf_cw8
-          sudo git clone https://github.com/thebest2666/drf_cw8.git          
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}  << E0F0      
+              
           cd drf_cw8
-          sudo echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> .env 
-          sudo echo "POSTGRES_DB=${{ secrets.POSTGRES_DB }}" >> .env
-          sudo echo "POSTGRES_USER=${{ secrets.POSTGRES_USER }}" >> .env
-          sudo echo "POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}" >> .env
-          sudo echo "POSTGRES_HOST=${{ secrets.POSTGRES_HOST }}" >> .env
-          sudo echo "POSTGRES_PORT=${{ secrets.POSTGRES_PORT }}" >> .env
-          sudo echo "TELEGRAM_TOKEN=${{ secrets.TELEGRAM_TOKEN }}" >> .env
-          sudo echo "CELERY_BROKER_URL=${{ secrets.CELERY_BROKER_URL }}" >> .env
-          sudo echo "CELERY_RESULT_BACKEND=${{ secrets.CELERY_RESULT_BACKEND }}" >> .env    
+           
           sudo docker stop drf_cw8 || true
           sudo docker rm -f drf_cw8 || true
           sudo docker compose down -v

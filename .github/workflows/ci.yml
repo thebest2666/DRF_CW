@@ -91,37 +91,22 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_KEY }}
 
-      - name: Create .env file
-        run: |
-          echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> .env          
-    
-          echo "POSTGRES_DB=${{ secrets.POSTGRES_DB }}" >> .env
-          echo "POSTGRES_USER=${{ secrets.POSTGRES_USER }}" >> .env
-          echo "POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}" >> .env
-          echo "POSTGRES_HOST=${{ secrets.POSTGRES_HOST }}" >> .env
-          echo "POSTGRES_PORT=${{ secrets.POSTGRES_PORT }}" >> .env
-    
-          echo "TELEGRAM_TOKEN=${{ secrets.TELEGRAM_TOKEN }}" >> .env
-    
-          echo "CELERY_BROKER_URL=${{ secrets.CELERY_BROKER_URL }}" >> .env
-          echo "CELERY_RESULT_BACKEND=${{ secrets.CELERY_RESULT_BACKEND }}" >> .env
 
       - name: Deploy to server
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}  << E0F0
           sudo rm -rf drf_cw8
-          sudo git clone https://github.com/thebest2666/drf_cw8.git
-          mv .env drf_cw8/
+          sudo git clone https://github.com/thebest2666/drf_cw8.git          
           cd drf_cw8
-          printf "SECRET_KEY=%s\n" "$SECRET_KEY" > .env          
-          printf "POSTGRES_DB=%s\n" "$POSTGRES_DB" >> .env
-          printf "POSTGRES_USER=%s\n" "$POSTGRES_USER" >> .env
-          printf "POSTGRES_PASSWORD=%s\n" "$POSTGRES_PASSWORD" >> .env
-          printf "POSTGRES_HOST=%s\n" "$POSTGRES_HOST" >> .env
-          printf "POSTGRES_PORT=%s\n" "$POSTGRES_PORT" >> .env
-          printf "TELEGRAM_TOKEN=%s\n" "TELEGRAM_TOKEN" >> .env          
-          printf "CELERY_BROKER_URL=%s\n" "$CELERY_BROKER_URL" >> .env
-          printf "CELERY_RESULT_BACKEND=%s\n" "$CELERY_RESULT_BACKEND" >> .env          
+          echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> .env 
+          echo "POSTGRES_DB=${{ secrets.POSTGRES_DB }}" >> .env
+          echo "POSTGRES_USER=${{ secrets.POSTGRES_USER }}" >> .env
+          echo "POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}" >> .env
+          echo "POSTGRES_HOST=${{ secrets.POSTGRES_HOST }}" >> .env
+          echo "POSTGRES_PORT=${{ secrets.POSTGRES_PORT }}" >> .env
+          echo "TELEGRAM_TOKEN=${{ secrets.TELEGRAM_TOKEN }}" >> .env
+          echo "CELERY_BROKER_URL=${{ secrets.CELERY_BROKER_URL }}" >> .env
+          echo "CELERY_RESULT_BACKEND=${{ secrets.CELERY_RESULT_BACKEND }}" >> .env    
           sudo docker stop drf_cw8 || true
           sudo docker rm -f drf_cw8 || true
           sudo docker compose down -v

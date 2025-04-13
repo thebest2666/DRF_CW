@@ -73,8 +73,8 @@ services:
         condition: service_healthy
       redis:
         condition: service_started
-      env_file:
-        - .env
+    env_file:
+      - .env
 
 
   nginx:
